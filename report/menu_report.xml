@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="action_report_account_receivable"
+                string="Report Account Receivable"
+                model="report.account.receivable"
+                report_type="qweb-pdf"
+                file="report_account_receivable.report_temp"
+                name="report_account_receivable.report_temp"
+        />
+    </data>
+</odoo>

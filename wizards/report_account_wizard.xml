@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="wizard_report_account_receivable" model="ir.ui.view">
+            <field name="name">report.account.receivable.form.view</field>
+            <field name="model">report.account.receivable</field>
+            <field name="arch" type="xml">
+                <form string="Laporan Piutang">
+                    <group>
+                        <field name="date"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="overdue_check"/>
+                        </group>
+                        <group>
+                            <field name="overdue_day" attrs="{'invisible':[('overdue_check', '=', False)]}" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="city_ids" widget="many2many_tags"/>
+                    </group>
+
+                    <footer>
+                        <button name="print_report_account_receivable" string="Print Report" class="oe_highlight"
+                                type="object"/>
+                        Or
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+
+
+            </field>
+        </record>
+
+        <record id="action_report_account_receivable" model="ir.actions.act_window">
+            <field name="name">Laporan Piutang</field>
+            <field name="res_model">report.account.receivable</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_wizard_report_account_receivable"
+                  name="Laporan Piutang"
+                  action="action_report_account_receivable"
+                  parent="account.menu_finance_legal_statement"
+                  sequence="2"/>
+    </data>
+</odoo>

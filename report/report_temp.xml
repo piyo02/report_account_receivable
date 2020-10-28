@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_temp">
+        <t t-call="report.external_layout">
+            <div class="page">
+                <div class="oe_structure"/>
+                    <div class="row">
+                    <center>
+                        <b>
+                            <h4>Laporan Piutang</h4>
+                        </b>
+                    </center>
+                    <center>
+                        <b>
+                            <span t-esc="date"/>
+                            To
+                            <span t-esc="end_date"/>
+                        </b>
+                    </center>
+                </div>
+                <br/>
+                <t t-foreach="data.keys()" t-as="city">
+                    <t t-if="data[city]">
+                        <center style="margin-bottom: 10px;">
+                            <b>
+                                <span t-esc="city"/>
+                            </b>
+                        </center>
+                    </t>
+                    <t t-set="total_sum" t-value="0"/>
+                    <t t-set="current_partner" t-value="a"/>
+                    <t t-set="amount_total_invoice" t-value="0"/>
+
+                    <t t-foreach="data[city]" t-as="invoices">
+                        <t t-if="invoices[2] == []">
+                        </t>
+                        <t t-else="">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <table class="table table-condensed" style="margin-bottom:-2px">
+                                        <thead >
+                                            <tr>
+                                                <th>Pelanggan: </th>
+                                                <td>
+                                                    <span t-esc="invoices[0]"/>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <table class="table table-bordered table-condensed table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td><b>Nomor SO</b></td>
+                                        <td><b>No Transaksi</b></td>
+                                        <td><b>Sales</b></td>
+                                        <td><b>Tgl Tagihan</b></td>
+                                        <td><b>Tgl JT</b></td>
+                                        <td class="text-right"><b>Total Tagihan</b></td>
+                                        <td class="text-right"><b>Sisa Tagihan</b></td>
+                                    </tr>
+                                    <t t-set="total_invoice" t-value="0"/>
+                                    <t t-set="residual_invoice" t-value="0"/>
+                                    <t t-foreach="invoices[2]" t-as="invoice">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="invoice[3]"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="invoice[1]"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="invoice[6]"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="invoice[0]"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="invoice[2]"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,}'.format(invoice[4])"/>
+                                                <t t-set="total_invoice" t-value="total_invoice + invoice[4]"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,}'.format(invoice[5])"/>
+                                                <t t-set="residual_invoice" t-value="residual_invoice + invoice[5]"/>
+                                                <t t-set="total_sum" t-value="total_sum + invoice[5]"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td colspan="6" class="text-right">
+                                            <span t-esc="'{:,}'.format(total_invoice)"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{:,}'.format(residual_invoice)"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <table class="table table-condensed table-striped" style="margin-top:-15px; margin-bottom: 30px;">
+                                        <tr>
+                                            <td><strong>Kredit Limit: </strong></td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,}'.format(invoices[1])"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Sisa Kredit Limit: </strong></td>
+                                            <td class="text-right">
+                                                <span t-esc="'{:,}'.format(invoices[1]-invoices[3])"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </t>
+                    </t>
+
+                    <t t-if="total_sum > 0">
+                        <div class="row">
+                            <div class="col-xs-4 pull-right">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <td><strong>Total</strong></td>
+                                        <td class="text-right">
+                                            <span t-esc="'{:,}'.format(total_sum)"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>
