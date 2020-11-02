@@ -8,9 +8,9 @@ _logger = logging.getLogger(__name__)
 class ReportAccountReceivable(models.TransientModel):
     _name = "report.account.receivable"
 
-    date = fields.Date('Date', required=True, default=datetime.today())
-    overdue_check = fields.Boolean('overdue')
-    overdue_day = fields.Integer(default='0')
+    date = fields.Date(string='Tanggal', required=True, default=datetime.today())
+    overdue_check = fields.Boolean(string='Jatuh Tempo')
+    overdue_day = fields.Integer(default='0', string='Hari Jatuh Tempo')
     city_ids = fields.Many2many("vit.kota", string='Kota', required=False)
 
 

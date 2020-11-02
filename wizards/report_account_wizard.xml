@@ -5,7 +5,7 @@
             <field name="name">report.account.receivable.form.view</field>
             <field name="model">report.account.receivable</field>
             <field name="arch" type="xml">
-                <form string="Laporan Piutang">
+                <form string="Laporan Piutang Jatuh Tempo">
                     <group>
                         <field name="date"/>
                     </group>
@@ -34,7 +34,7 @@
         </record>
 
         <record id="action_report_account_receivable" model="ir.actions.act_window">
-            <field name="name">Laporan Piutang</field>
+            <field name="name">Laporan Piutang Jatuh Tempo</field>
             <field name="res_model">report.account.receivable</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
@@ -42,7 +42,7 @@
         </record>
 
         <menuitem id="menu_wizard_report_account_receivable"
-                  name="Laporan Piutang"
+                  name="Laporan Piutang Jatuh Tempo"
                   action="action_report_account_receivable"
                   parent="account.menu_finance_legal_statement"
                   sequence="2"/>
