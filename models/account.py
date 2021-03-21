@@ -36,7 +36,6 @@ class ReportAccountReceivable(models.TransientModel):
                     end_date = date(month=_date.month, year=_date.year, day=_date.day)+timedelta(days=self.overdue_day)
                     # end_date = (datetime.strptime(self.date, '%Y-%m-%d')+relativedelta(days =+ self.overdue_day))
                     invoices = self.env['account.invoice'].search([ 
-                        ('date_due', '>=', self.date), 
                         ('date_due', '<=', end_date), 
                         ('state', '=', 'open'), 
                         ('type', '=', 'out_invoice'), 
